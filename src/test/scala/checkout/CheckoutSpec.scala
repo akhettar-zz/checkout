@@ -25,5 +25,18 @@ class CheckoutSpec extends FlatSpec with Matchers {
     val offers = List(("A", ByOneGetOneFree))
     val total = checkout.total(offers)
     total should be(1.45)
+    checkout.prettyPrintBalance(total) should be("£1.45")
+  }
+
+  "3 Oranges with 2 for 3 oranges offer and one apple" should "cost £1.45" in {
+    val checkout = new Checkout(List(Item("A", "Apple", 0.6), Item("O", "Orange", 0.25), Item("O", "Orange", 0.25), Item("O", "Orange", 0.25)))
+    val balance = checkout.balance
+    balance should be(1.35)
+
+    // applying the offer
+    val offers = List(("O", ThreeForThePriceOfTwo))
+    val total = checkout.total(offers)
+    total should be(1.1)
+    checkout.prettyPrintBalance(total) should be("£1.10")
   }
 }

@@ -14,7 +14,12 @@ object ByOneGetOneFree extends Offer {
   }
 }
 
-
+object ThreeForThePriceOfTwo extends Offer {
+  def applyOffer(items: Seq[Item]): BigDecimal = items match {
+    case Nil => 0
+    case _ => ((items.size / 3 + items.size ) / 2) * items.head.price
+  }
+}
 
 class Checkout(items: List[Item] = List.empty) {
 
